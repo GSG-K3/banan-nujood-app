@@ -1,6 +1,8 @@
-import React from "react";
-import Main from "./main";
-export default class fetchResults extends React.Component {
+import React, {Component} from "react";
+// import Main from "./main";
+export default class Result extends Component{
+  
+  // const {tasks} = props
   state = {
     loading: true,
     translated: null
@@ -8,7 +10,7 @@ export default class fetchResults extends React.Component {
 
   dummyData = [
     "an country demon message it. Bachelor domestic extended doubtful as concerns at. Morning prudent removal an letters by. On could my in order never it. Or excited certain sixteen it to parties colonel. Depending conveying direction has led immediate. Law gate her well bed life feet seen rent. On nature or no except it sussex",
-    "      Delightful unreserved impossible few estimating men favourable seeentreaties. She propriety immediate was improving. He or entrance human likewise moderate. Much nor game son say feel. Fat make met can must form into gate. Me we offending prevailed discovery "
+    "      Delightful unreserved impossible few estimating men favourable ties. She propriety immediate was improving. He or entrance human likewise moderate. Much nor game son say feel. Fat make met can must form into gate. Me we offending prevailed discovery "
   ];
   language = [
     "ar",
@@ -25,29 +27,37 @@ export default class fetchResults extends React.Component {
     "el",
     "fr"
   ];
-   options = this.language.map((lang)=>{
+  //  options = this.language.map((lang)=>{
 
-    return(
-      <div key={this.language.key}>
-      <select>
-        <option>
-          {this.language}
-        </option>
-      </select>
-      </div>
-    )
-  })
-  async componentDidMount() {
+  //   return(
+  //     <div key={this.language.key}>
+  //     <select>
+  //       <option>
+  //         {this.language}
+  //       </option>
+  //     </select>
+  //     </div>
+  //   )
+  // })
+  async componentDidMount(){
     const url1 = `https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20200401T052304Z.29988c43302dc2e8.cfa173c0be8d625af83e07a8a68bff6274912094&text="+${this.dummyData[0]}+ ${this.dummyData[1]} "&lang=${this.language[1]}-${this.language[6]}`;
 
     const response = await fetch(url1);
-    const data = await response.json();
+    const data =  await response.json();
     this.setState({ translated: data.text, loading: false });
-    console.log(data.text);
+    
+
+  }
+  async componentDidUpdate(){
+    const url = `https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20200401T052304Z.29988c43302dc2e8.cfa173c0be8d625af83e07a8a68bff6274912094&text="+${this.props.inputText}+"&lang=${this.language[1]}-${this.language[0]}`
+    const response = await fetch(url);
+    const data =  await response.json();
+    this.setState({ translated: data.text, loading: false });
 
   }
   
-  render() {
+  render(){
+
     if (this.state.loading) {
       return <div>loading...</div>;
     }
@@ -55,10 +65,12 @@ export default class fetchResults extends React.Component {
     return (
       <React.Fragment>
         {this.state.translated[0]}
-        {this.options}
+        {/* {this.options} */}
         </React.Fragment>
     );
+    
   }
+   
 }
 
 // {
