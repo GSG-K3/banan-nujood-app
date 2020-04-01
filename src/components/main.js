@@ -1,5 +1,5 @@
 import React from "react";
-import Results from "react";
+import Results from "./results";
 
 export default class MainPage extends React.Component {
   state = {
@@ -23,7 +23,7 @@ export default class MainPage extends React.Component {
   AddText = (e) => {
     e.preventDefault();
     const newText = this.state.toTranslat.text;
-    console.log(newText);
+    // console.log(newText);
     if (newText.trim()) {
       this.setState({
         loading: false,
@@ -48,7 +48,7 @@ export default class MainPage extends React.Component {
           <button type="submit">Translate</button>
           
         </form>
-        {/* <Results inputText= {this.AddText} /> */}
+        <Results inputText= {this.state.toTranslat.text} />
       </>
     );
   }

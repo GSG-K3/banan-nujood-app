@@ -8,9 +8,8 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        {/* <MainPage/> */}
-        <Results/>
-      </header>
+        <MainPage/>
+    </header>
     </div>
   );
 }
